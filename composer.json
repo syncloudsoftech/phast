@@ -1,0 +1,17 @@
+{
+    "autoload": {
+        "files": [
+            "constants.php",
+            "helpers.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "require": {
+        "bramus/router": "^1.6",
+        "catfan/medoo": "^2.1",
+        "phpmailer/phpmailer": "^6.8",
+        "league/plates": "^3.5"
+    }
+}

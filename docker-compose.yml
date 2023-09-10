@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  mailcatcher:
+    image: syncloudsoftech/mailcatcher
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
+  mysql:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: phastapp
+      MYSQL_USER: phastapp
+      MYSQL_PASSWORD: phastapp
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: phastapp
+      PMA_PASSWORD: phastapp
+    ports:
+      - '9000:80'
+
+  web:
+    build: .
+    depends_on:
+      - mailcatcher
+      - mysql
+    ports:
+      - '8000:80'
+    volumes:
+      - .:/var/www/html
+
+volumes:
+  mysql-data:
