@@ -32,7 +32,10 @@ services:
       - '9000:80'
 
   web:
-    build: .
+    build:
+      context: .
+      args:
+        imageTag: 7.x-apache-debug
     depends_on:
       - mailcatcher
       - mysql
